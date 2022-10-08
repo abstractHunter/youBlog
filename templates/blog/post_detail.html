@@ -9,5 +9,14 @@
     </h1>
     <p>{{ post.author }} | {{ post.created_at }}</p>
     <p>{{ object.content|safe }}</p>
+    <div>
+      <h3>Commentaires</h3>
+      {% for comment in post.comments.all %}
+        <div>
+          <blockquote>{{ comment.author }} | {{ comment.created_at }}</blockquote>
+          <p>{{ comment.content }}</p>
+        </div>
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}
