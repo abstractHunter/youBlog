@@ -37,12 +37,17 @@ class SignOutView(LogoutView):
 
 class ProfileView(LoginRequiredMixin, DetailView):
     template_name = "accounts/profile.html"
-    # model = get_user_model()
 
     def get_object(self):
         return self.request.user
 
     def get_context_data(self, **kwargs):
+        if self.kwargs.get("username"):
+            user = get_user_model().objects.get(username=self.kwargs.get("username"))
+        else:
+            user = self.request.user
+
         context = super().get_context_data(**kwargs)
-        context["posts"] = Post.objects.filter(author=self.request.user)
+        context["user_profile"] = user
+        context["posts"] = Post.objects.filter(author=user)
         return context

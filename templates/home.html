@@ -7,7 +7,7 @@
     {% for post in post_list %}
         <div>
             <h3>{{post.title}}</h3>
-            <blockquote>Publié par {{post.author}} le {{post.created_at}}</blockquote>
+            <blockquote>Publié par <a href="{% url 'other_profile' post.author %}">{{ post.author }}</a> le {{post.created_at}}</blockquote>
             <p>{{post.content|slice:":200" }}</p>
             <a href="{% url 'post_detail' post.author post.slug%}">Continuer la lecture</a>
         </div>

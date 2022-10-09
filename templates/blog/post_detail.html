@@ -7,7 +7,7 @@
         {{ object.title }}
       {% endblock %}
     </h1>
-    <p>{{ post.author }} | {{ post.created_at }}</p>
+    <p><a href="{% url 'other_profile' post.author %}">{{ post.author }}</a> | {{ post.created_at }}</p>
     <p>{{ object.content|safe }}</p>
     <div>
       <h3>Commentaires</h3>

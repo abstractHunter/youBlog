@@ -1,20 +1,20 @@
 {% extends 'blog_page.html' %}
 
 {% block title %}
-  Le Blog de {{ user.username }}
+  Le Blog de {{ user_profile.username }}
 {% endblock %}
 
 {% block body %}
   <div>
     <div>
-      <h1>Le blog de {{ request.user.username }}</h1>
-      <h4>Email : {{ request.user.email }}</h4>
+      <h1>Le blog de {{ user_profile.username }}</h1>
+      <h4>Email : {{ user_profile.email }}</h4>
     </div>
     <div>
     {% for post in posts %}
         <div>
             <h3>{{post.title}}</h3>
-            <blockquote>Publié par {{post.author}} le {{post.created_at}}</blockquote>
+            <blockquote>Publié le {{post.created_at}}</blockquote>
             <p>{{post.content|slice:":200" }}</p>
             <a href="{% url 'post_detail' post.author post.slug%}">Continuer la lecture</a>
         </div>
