@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model, login, logout
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -51,3 +51,16 @@ class ProfileView(LoginRequiredMixin, DetailView):
         context["user_profile"] = user
         context["posts"] = Post.objects.filter(author=user)
         return context
+
+
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    model = get_user_model()
+    template_name = "accounts/edit_profile.html"
+    fields = ["username", "email", "first_name", "last_name"]
+    success_url = reverse_lazy("my_profile")
+
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    def get_object(self):
+        return self.request.user
