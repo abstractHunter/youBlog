@@ -35,7 +35,7 @@ class SignOutView(LogoutView):
         return super().get(request, *args, **kwargs)
 
 
-class ProfileView(LoginRequiredMixin, DetailView):
+class ProfileView(DetailView):
     template_name = "accounts/profile.html"
 
     def get_object(self):
