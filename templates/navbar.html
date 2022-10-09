@@ -1,0 +1,22 @@
+{% block navbar %}
+    <div>
+        {% if user.is_authenticated %} 
+            <p>
+                Salut {{ user.username }} :)
+            </p>
+            <p>
+                <a href="{% url 'home' %}"> Accueil</a> | 
+                <a href="{% url 'logout' %}"> Déconnexion</a> | 
+                <a href="{% url 'profile' %}"> Profil</a>
+            </p>
+        {% else %}
+            <p>Vous n'êtes pas connecté</p>
+            <p>
+                <a href="{% url 'home' %}"> Accueil</a> | 
+                <a href="{% url 'login' %}"> Connexion</a> | 
+                <a href="{% url 'signup' %}"> Inscription</a>
+            </p>
+        {% endif %}
+    </div>
+{% endblock navbar %}
+    

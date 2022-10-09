@@ -1,18 +1,8 @@
-{% extends "base.html" %}
+{% extends "blog_page.html" %}
 
 {% block title %} Accueil{% endblock %}
 
-{% block content %}
-    {% if user.is_authenticated %} Salut {{ user.username }} :)
-        <p>
-            <a href="{% url 'logout' %}">Déconnexion</a>
-        </p>
-    {% else %}
-        <p>Vous n'êtes pas connecté</p>
-    <a href="{% url 'login' %}">Se connecter</a> |
-        <a href="{% url 'signup' %}">Créer un compte</a>
-    {% endif %}
-
+{% block body %}
     <div>
     {% for post in post_list %}
         <div>
