@@ -1,9 +1,12 @@
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model, login, logout
+from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import CustomUserCreationForm
+from blog.models import Post
 
 # Create your views here.
 
@@ -30,3 +33,16 @@ class SignOutView(LogoutView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return super().get(request, *args, **kwargs)
+
+
+class ProfileView(LoginRequiredMixin, DetailView):
+    template_name = "accounts/profile.html"
+    # model = get_user_model()
+
+    def get_object(self):
+        return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["posts"] = Post.objects.filter(author=self.request.user)
+        return context

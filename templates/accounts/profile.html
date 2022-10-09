@@ -1,10 +1,17 @@
-{% extends "blog_page.html" %}
+{% extends 'blog_page.html' %}
 
-{% block title %} Accueil{% endblock %}
+{% block title %}
+  Le Blog de {{ user.username }}
+{% endblock %}
 
 {% block body %}
+  <div>
     <div>
-    {% for post in post_list %}
+      <h1>Le blog de {{ request.user.username }}</h1>
+      <h4>Email : {{ request.user.email }}</h4>
+    </div>
+    <div>
+    {% for post in posts %}
         <div>
             <h3>{{post.title}}</h3>
             <blockquote>Publié par {{post.author}} le {{post.created_at}}</blockquote>
@@ -13,7 +20,8 @@
         </div>
 
     {% empty %}
-        <p>Il n'y a aucun article</p>
+        <p>Vous n'avez encore aucun article</p>
     {% endfor %}
     </div>
+  </div>
 {% endblock %}
