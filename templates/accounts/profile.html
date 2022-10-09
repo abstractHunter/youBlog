@@ -9,6 +9,9 @@
     <div>
       <h1>Le blog de {{ user_profile.username }}</h1>
       <h4>Email : {{ user_profile.email }}</h4>
+      <h4>Prenom : {{ user_profile.first_name }}</h4>
+      <h4>Nom : {{ user_profile.last_name }}</h4>
+      <h4>Nombre d'articles : {{ posts|length }}</h4>
     </div>
     <div>
     {% for post in posts %}
