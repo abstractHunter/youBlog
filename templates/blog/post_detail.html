@@ -7,8 +7,17 @@
         {{ object.title }}
       {% endblock %}
     </h1>
-    <p><a href="{% url 'other_profile' post.author %}">{{ post.author }}</a> | {{ post.created_at }}</p>
+      
+    <p>
+      <a href="{% url 'other_profile' post.author %}">{{ post.author }}</a> | {{ post.created_at }}
+      {% if request.user == post.author %}
+        | <a href="{% url 'post_edit' post.author post.slug %}">Modifier</a>
+        | <a href="{% url 'post_delete' post.author post.slug %}">Supprimer</a>
+      {% endif %}
+    </p>
+
     <p>{{ object.content|safe }}</p>
+
     <div>
       <h3>Commentaires</h3>
       {% for comment in post.comments.all %}

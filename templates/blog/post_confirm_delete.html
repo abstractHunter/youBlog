@@ -1,0 +1,14 @@
+{% extends 'blog_page.html' %}
+
+{% block title %}
+  Confirmation de suppression
+{% endblock %}
+
+{% block body %}
+  <form method="post">
+    {% csrf_token %}
+    <h1>Etes vous sur de vouloir supprimer cet article ?</h1>
+    <button onclick="history.back()">Non</button>
+    <input type="submit" value="Oui" />
+  </form>
+{% endblock %}
