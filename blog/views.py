@@ -3,8 +3,9 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
-from .models import Post
 
+from .models import Post
+from .forms import CommentForm
 # Create your views here.
 
 
@@ -17,6 +18,15 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
 
+    def post(self, request, *args, **kwargs):
+        form = CommentForm(request.POST)
+        post = Post.objects.get(slug=self.kwargs['slug'])
+        if form.is_valid():
+            form.instance.author = request.user
+            form.instance.post = post
+            form.save()
+        return redirect('post_detail', username=post.author, slug=self.kwargs['slug'])
+
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -26,7 +36,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        return super(PostCreate, self).form_valid(form)
+        return super().form_valid(form)
 
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
