@@ -41,6 +41,12 @@ INSTALLED_APPS = [
     # local apps
     'accounts',
     'blog',
+
+    # third party apps
+    'tailwind',
+    'theme',
+    # to automatically reload the browser when changes are made to the code
+    'django_browser_reload',
 ]
 
 AUTH_USER_MODEL = "accounts.User"
@@ -53,6 +59,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # third party apps
+    # tailwind middleware to automatically reload the browser
+    'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 
 ROOT_URLCONF = 'youBlog.urls'
@@ -131,3 +141,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+
+# Tailwind app config
+TAILWIND_APP_NAME = 'theme'
+INTERNAL_IPS = [
+    "127.0.0.1",
+]

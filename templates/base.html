@@ -1,5 +1,7 @@
+{% load tailwind_tags %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,8 +11,9 @@
 
       {% endblock %}
     </title>
+    {% tailwind_css %}
   </head>
-  <body>
+  <body class="bg-blue-900 font-serif leading-normal tracking-normal">
     <main>
       {% block content %}
 
