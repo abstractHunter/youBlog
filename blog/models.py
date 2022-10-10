@@ -16,8 +16,8 @@ class Tag(models.Model):
 
 class Post(models.Model):
     POST_STATUS = (
-        (0, "Draft"),
-        (1, "Publish")
+        (0, "Brouillon"),
+        (1, "Publié"),
     )
 
     title = models.CharField(max_length=128)
