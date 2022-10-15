@@ -4,9 +4,13 @@
   {% block navbar %}
     {% include 'navbar.html' %}
   {% endblock %}
-  <main>
+  <main class="flex w-full p-10">
     {% block body %}
 
+    {% endblock %}
+
+    {% block sidebar %}
+      {% include 'sidebar.html' %}
     {% endblock %}
   </main>
 {% endblock %}
