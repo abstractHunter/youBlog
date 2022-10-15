@@ -1,23 +1,80 @@
 {% block navbar %}
-    <div>
-        {% if user.is_authenticated %} 
-            <p>
-                Salut {{ user.username }} :)
-            </p>
-            <p>
-                <a href="{% url 'home' %}"> Accueil</a> | 
-                <a href="{% url 'logout' %}"> Déconnexion</a> | 
-                <a href="{% url 'my_profile' %}"> Profil</a> |
-                <a href="{% url 'post_new' %}"> Nouvel article</a>
-            </p>
-        {% else %}
-            <p>Vous n'êtes pas connecté</p>
-            <p>
-                <a href="{% url 'home' %}"> Accueil</a> | 
-                <a href="{% url 'login' %}"> Connexion</a> | 
-                <a href="{% url 'signup' %}"> Inscription</a>
-            </p>
-        {% endif %}
-    </div>
+    <nav class="relative flex justify-between px-8 h-16 w-full bg-slate-700 text-white">
+        <a href="/" class="self-center w-52">YouBlog</a>
+
+        <div class="flex flex-col md:hidden">
+            <button class="self-end h-12 w-12 m-2 p-2 z-12">
+                ...
+            </button>
+            <div class="bg-slate-800 z-10 mt-4 rounded-xl w-40 hidden" id="sm-link-menu">
+                <ul class="">
+                    <li>
+                        <a href="{% url 'home' %}">Accueil</a>
+                    </li>
+                    <li>
+                        <a href="">Articles</a>
+                    </li>
+                    <li>
+                        <a href="">Auteurs</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'post_new' %}">+</a>
+                    </li>
+
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'logout' %}">Déconnexion</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'my_profile' %}">Profil</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'login' %}">Connexion</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'signup' %}">Inscription</a>
+                        </li>
+                    {% endif %}
+                        
+                </ul>
+            </div>
+        </div>
+
+        <ul class="hidden md:flex flex-grow justify-center items-center">
+            <li class="mx-4">
+                <a href="{% url 'home' %}">Accueil</a>
+            </li>
+            <li class="mx-4">
+                <a href="">Articles</a>
+            </li>
+            <li class="mx-4">
+                <a href="">Auteurs</a>
+            </li>
+        </ul>
+
+        <ul class="hidden md:flex justify-between items-center w-52">
+            <li>
+                <a href="{% url 'post_new' %}">+</a>
+            </li>
+
+            {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'logout' %}">Déconnexion</a>
+                </li>
+                <li>
+                    <a href="{% url 'my_profile' %}">Profil</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% url 'login' %}">Connexion</a>
+                </li>
+                <li>
+                    <a href="{% url 'signup' %}">Inscription</a>
+                </li>
+            {% endif %}
+                
+        </ul>
+    </nav>
 {% endblock navbar %}
     
