@@ -3,9 +3,9 @@
 {% block title %} Accueil{% endblock %}
 
 {% block body %}
-    <div class="mx-8 px-2">
+    <div class="mx-8 px-2 w-[800px]">
         {% for post in post_list %}
-            <div class="my-8 w-[800px]">
+            <div class="my-8">
                 <h3 class="text-2xl text-sky-500 font-bold">
                     <a href="{% url 'post_detail' post.author post.slug%}">{{post.title}}</a>
                 </h3>
@@ -16,6 +16,11 @@
                     </a> 
                     le {{post.created_at}}7
                 </blockquote>
+                <p>
+                {% for tag in post.tags.all %}
+                    | {{tag.name}}
+                {% endfor %}
+                </p>
                 <p>{{post.content|slice:":200" }}</p>
                 <a href="{% url 'post_detail' post.author post.slug%}"
                     class="text-sky-600 font-bold"
