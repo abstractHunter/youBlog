@@ -1,50 +1,55 @@
 {% extends 'blog_page.html' %}
 
 {% block body %}
-  <div>
-    <h1>
+  <div class="w-[900px] mx-8 px-2 ">
+    <h1 class="text-3xl pb-10">
       {% block title %}
         {{ object.title }}
       {% endblock %}
     </h1>
       
-    <p>
-      <a href="{% url 'other_profile' post.author %}">{{ post.author }}</a> | {{ post.created_at }}
+    <p class="text-lg pb-4">
+      <a href="{% url 'other_profile' post.author %}" class="text-blue-600">{{ post.author }}</a> | {{ post.created_at }}
       {% if request.user == post.author %}
-        | <a href="{% url 'post_edit' post.author post.slug %}">Modifier</a>
-        | <a href="{% url 'post_delete' post.author post.slug %}">Supprimer</a>
+        | <a href="{% url 'post_edit' post.author post.slug %}" class="text-green-500">Modifier</a>
+        | <a href="{% url 'post_delete' post.author post.slug %}" class="text-green-500">Supprimer</a>
       {% endif %}
+    </p>
+
+    <p class="text-lg pb-4">
+      {% for tag in post.tags.all %}
+        | {{tag.name}}
+      {% endfor %}
     </p>
 
     <p>{{ object.content|safe }}</p>
 
-    <div>
-      <h3>Commentaires</h3>
-      
+    <div class="my-20">
       {% if user.is_authenticated %}
         <form method="post">
-        {% csrf_token %}
+          {% csrf_token %}
           <div>
-            <label for="content">Commentaire</label>
-            <textarea name="content" id="content" cols="30" rows="10"></textarea>
+            <label for="content">Laissez un commentaire: </label>
+            <textarea name="content" id="content" cols="45" rows="2"></textarea>
+            <button type="submit" class="text-2xl text-green-500 border border-black rounded-lg mx-4">Envoyer</button>
           </div>
-          <div>
-            <button type="submit">Envoyer</button>
-          </div>
-      </form>
+        </form>
       {% else %}
         <p>Connectez vous pour laisser un commentaire</p>
       {% endif %}
         
       
-      {% for comment in post.comments.all %}
-        <div>
+      <div class="mt-12">
+
+        {% for comment in post.comments.all %}
+        <div class="mb-4">
           <blockquote>{{ comment.author }} | {{ comment.created_at }}</blockquote>
           <p>{{ comment.content }}</p>
         </div>
-      {% empty %}
-        <p>Aucun commentaire</p>
-      {% endfor %}
+        {% empty %}
+        <p">Aucun commentaire</p>
+        {% endfor %}
+      </div>
     </div>
   </div>
 {% endblock %}

@@ -7,7 +7,9 @@
 {% block body %}
   <div>
     <div>
-      <h1>Le blog de {{ user_profile.username }}</h1>
+      <h1 class="text-2xl font-bold">Le blog de 
+        <span class="text-[#f56] text-4xl">{{ user_profile.username }}</span>
+      </h1>
       <h4>Email : {{ user_profile.email }}</h4>
       <h4>Prenom : {{ user_profile.first_name }}</h4>
       <h4>Nom : {{ user_profile.last_name }}</h4>
@@ -15,19 +17,25 @@
     </div>
     <div>
     {% for post in posts %}
-        <div>
-            <h3>{{post.title}}</h3>
+        <div class="my-8 w-[800px]">
+            <h3 class="text-2xl text-sky-500 font-bold">
+              <a href="{% url 'post_detail' post.author post.slug%}">{{post.title}}</a>
+            </h3>
             <blockquote>
               Publié le {{post.created_at}}
                {% if request.user == post.author %}
-                | <a href="{% url 'post_edit' post.author post.slug %}">Modifier</a>
-                | <a href="{% url 'post_delete' post.author post.slug %}">Supprimer</a>
+                | <a href="{% url 'post_edit' post.author post.slug %}" class="text-green-500 text-lg">Modifier</a>
+                | <a href="{% url 'post_delete' post.author post.slug %}" class="text-green-500 text-lg">Supprimer</a>
               {% endif %}
             </blockquote>
+            <p>
+              {% for tag in post.tags.all %}
+                | {{tag.name}}
+              {% endfor %}
+            </p>
             <p>{{post.content|slice:":200" }}</p>
-            <a href="{% url 'post_detail' post.author post.slug%}">Continuer la lecture</a>
+            <a href="{% url 'post_detail' post.author post.slug%}" class="text-sky-600 font-bold"> Lire la suite</a>
         </div>
-
     {% empty %}
         <p>Vous n'avez encore aucun article</p>
     {% endfor %}
