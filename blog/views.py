@@ -10,7 +10,7 @@ from .forms import CommentForm
 
 
 class PostListView(ListView):
-    queryset = Post.objects.filter(status=1).order_by('-created_at')
+    queryset = Post.objects.filter(published=True).order_by('-created_at')
     template_name = 'home.html'
 
 
@@ -31,7 +31,7 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'blog/post_form.html'
-    fields = ['title', 'slug', 'content', 'status', 'tags']
+    fields = ['title', 'slug', 'content', 'published', 'tags']
     success_url = reverse_lazy('my_profile')
 
     def form_valid(self, form):
@@ -42,7 +42,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'blog/post_form.html'
-    fields = ['title', 'slug', 'content', 'status', 'tags']
+    fields = ['title', 'slug', 'content', 'published', 'tags']
     success_url = reverse_lazy('my_profile')
 
     def get(self, request, *args, **kwargs):
