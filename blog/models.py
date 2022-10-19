@@ -15,18 +15,13 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
-    POST_STATUS = (
-        (0, "Brouillon"),
-        (1, "Publié"),
-    )
-
     title = models.CharField(max_length=128)
     slug = models.CharField(max_length=128, unique=True)
     author = models.ForeignKey(user_model, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    status = models.IntegerField(choices=POST_STATUS, default=0)
+    published = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tag)
 
     class Meta:
