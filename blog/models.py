@@ -32,7 +32,7 @@ class Post(models.Model):
     def _generate_unique_slug(self):
         slug = slugify(self.title)
         unique_slug = "{}-{}".format(slug,
-                                     datetime.now().strftime("%Y-%b-%d-%H-%M-%S"))
+                                     datetime.now().strftime("%Y-%b-%d-%H-%M-%S"))  # like 2020-Jul-01-12-50-22
         return unique_slug
 
     def save(self, *args, **kwargs):
