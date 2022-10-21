@@ -42,14 +42,17 @@ class ProfileView(DetailView):
         return self.request.user
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
         if self.kwargs.get("username"):
             user = get_user_model().objects.get(username=self.kwargs.get("username"))
+            context["posts"] = Post.objects.filter(
+                author=user).filter(published=True)
         else:
             user = self.request.user
+            context["posts"] = Post.objects.filter(author=user)
 
-        context = super().get_context_data(**kwargs)
         context["user_profile"] = user
-        context["posts"] = Post.objects.filter(author=user)
         return context
 
 
