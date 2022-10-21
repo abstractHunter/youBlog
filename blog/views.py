@@ -11,7 +11,7 @@ from .forms import CommentForm
 
 class PostListView(ListView):
     queryset = Post.objects.filter(published=True).order_by('-created_at')
-    template_name = 'home.html'
+    template_name = 'blog/post_list.html'
 
 
 class PostDetailView(DetailView):
