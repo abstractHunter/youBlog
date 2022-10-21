@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.db import models
+from django.template.defaultfilters import slugify
+from datetime import datetime
 
 # Create your models here.
 
@@ -16,16 +18,27 @@ class Tag(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=128)
-    slug = models.CharField(max_length=128, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, blank=True)
     author = models.ForeignKey(user_model, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=False)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     class Meta:
         ordering = ["-created_at"]
+
+    def _generate_unique_slug(self):
+        slug = slugify(self.title)
+        unique_slug = "{}-{}".format(slug,
+                                     datetime.now().strftime("%Y-%b-%d-%H-%M-%S"))  # like 2020-Jul-01-12-50-22
+        return unique_slug
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self._generate_unique_slug()
+        super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
