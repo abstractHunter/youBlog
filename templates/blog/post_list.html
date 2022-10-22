@@ -1,8 +1,8 @@
-{% extends "blog_page.html" %}
+{% extends "base.html" %}
 
 {% block title %} Articles {% endblock %}
 
-{% block body %}
+{% block content %}
     <div class="w-full flex flex-wrap justify-center md:m-12">
         {% for post in post_list %}
             <div class="w-80 my-8 flex flex-col border rounded-2xl bg-slate-200 p-1 md:m-4">

@@ -1,10 +1,10 @@
-{% extends 'blog_page.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
   Nouvel article
 {% endblock %}
 
-{% block body %}
+{% block content %}
   <div class="w-full m-4">
     <form method="post" class="flex flex-col w-full items-center">
       {% csrf_token %}
