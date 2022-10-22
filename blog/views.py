@@ -21,6 +21,12 @@ class PostDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         form = CommentForm(request.POST)
         post = Post.objects.get(slug=self.kwargs['slug'])
+
+        if request.user in post.likes.all():
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
+
         if form.is_valid():
             form.instance.author = request.user
             form.instance.post = post

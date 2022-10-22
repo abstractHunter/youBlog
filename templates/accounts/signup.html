@@ -5,30 +5,31 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Inscription</h1>
 
-  <form method="post">
+  <form method="post" class="flex flex-col w-full items-center p-8">
     {% csrf_token %}
+    <h1 class="text-3xl m-10">Inscription</h1>
 
-    <div>
+    <div class="flex flex-col w-full md:w-[500px] my-2">
       <label for="username">Nom d'utilisateur:</label>
-      <input type="text" name="username" id="username" />
+      <input type="text" name="username" id="username" class="rounded-lg" />
     </div>
-    <div>
+    
+    <div class="flex flex-col w-full md:w-[500px] my-2">
       <label for="password1">Entrez un mot de passse:</label>
-      <input type="password" name="password1" id="password1" />
+      <input type="password" name="password1" id="password1" class="rounded-lg" />
     </div>
-    <div>
+
+    <div class="flex flex-col w-full md:w-[500px] my-2">
       <label for="password2">Confirmez le mot de passe:</label>
-      <input type="password" name="password2" id="password2" />
+      <input type="password" name="password2" id="password2" class="rounded-lg" />
     </div>
-    <div>
-      <input type="submit" value="S'inscrire" />
-    </div>
-    {% if error %}
-      <div>{{ error }}</div>
-    {% endif %}
+
+    <button type="submit" class="bg-blue-500 text-white rounded-lg p-2 w-40 mt-10">
+      S'inscrire
+    </button>
+    
+    <p class="mt-10">J'ai deja un compte. <a href="{% url 'login' %}" class="text-blue-700">Se Connecter</a></p>
   </form>
 
-  <p>J'ai deja un compte. <span><a href="{% url 'login' %}">Se Connecter</a></span></p>
 {% endblock %}

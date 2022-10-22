@@ -5,24 +5,26 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Connexion</h1>
 
-  <form method="post">
+  <form method="post" class="flex flex-col w-full items-center p-8">
     {% csrf_token %}
+    <h1 class="text-3xl m-10">Connexion</h1>
 
-    <div class="form-group">
+    <div class="flex flex-col w-full md:w-[500px] my-2">
       <label for="username">Nom d'utilisateur</label>
-      <input type="text" class="form-control" id="username" name="username" placeholder="Nom d'utilisateur" />
+      <input type="text" class="rounded-lg" id="username" name="username" placeholder="Nom d'utilisateur" />
     </div>
-    <div class="form-group">
+
+    <div class="flex flex-col w-full md:w-[500px] my-2">
       <label for="password">Mot de passe</label>
-      <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" />
+      <input type="password" class="rounded-lg" id="password" name="password" placeholder="Mot de passe" />
     </div>
-    <button type="submit">Se connecter</button>
-    {% if error %}
-      <div>{{ error }}</div>
-    {% endif %}
+
+    <button type="submit" class="bg-blue-500 text-white rounded-lg p-2 w-40 mt-10">
+      Se connecter
+    </button>
+    
+    <p class="mt-10">Je n'ai pas encore de compte. <a href="{% url 'signup' %}" class="text-blue-700">S'inscrire</a></p>
   </form>
 
-  <p>Je n'ai pas encore de compte. <span><a href="{% url 'signup' %}">S'inscrire</a></span></p>
 {% endblock %}

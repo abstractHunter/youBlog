@@ -5,55 +5,67 @@
 {% endblock %}
 
 {% block content %}
-  <div class="w-full flex flex-col items-center">
-    <div>
-      <h1 class="text-2xl font-bold">Le blog de 
-        <span class="text-[#f56] text-4xl">{{ user_profile.username }}</span>
-      </h1>
-	  <div class="mt-8">
-		  <p>Email : <span class="text-slate-700 text-xl">{{ user_profile.email }}</span></p>
-		  <p>Prenom : <span class="text-slate-700 text-xl">{{ user_profile.first_name }}</span></p>
-		  <p>Nom : <span class="text-slate-700 text-xl">{{ user_profile.last_name }}</span></p>
-		  <p>Nombre d'articles : <span class="text-slate-700 text-xl">{{ posts|length }}</span></p>
+  	<div class="w-full flex flex-col items-center">
+		<div>
+			<h1 class="text-2xl font-bold">Le blog de 
+				<span class="text-[#f56] text-4xl">{{ user_profile.username }}</span>
+			</h1>
+			<div class="mt-8">
+				<p>Email : <span class="text-slate-700 text-xl">{{ user_profile.email }}</span></p>
+				<p>Prenom : <span class="text-slate-700 text-xl">{{ user_profile.first_name }}</span></p>
+				<p>Nom : <span class="text-slate-700 text-xl">{{ user_profile.last_name }}</span></p>
+				<p>Nombre d'articles : <span class="text-slate-700 text-xl">{{ posts|length }}</span></p>
+			</div>
+			
+			{% if request.user == user_profile %}
+				<a href="{% url 'edit_profile' %}" class="text-blue-500">Modifier mes informations</a>
+			{% endif %}
+				
 		</div>
-    </div>
 
-    <div class="flex flex-wrap justify-center md:m-12">
-    {% for post in posts %}
-        <div class="w-80 my-8 flex flex-col border rounded-2xl bg-slate-200 p-1 md:m-4">
-			<div class="w-full h-40 mb-2">
-				<img src="https://picsum.photos/312/152" alt="" class="rounded-2xl">
-			</div>
+		<div class="flex flex-wrap justify-center md:m-12">
+		{% for post in posts %}
+			<div class="w-80 my-8 flex flex-col border rounded-2xl bg-slate-200 p-1 md:m-4">
+				<div class="w-full h-40 mb-2">
+					<img src="https://picsum.photos/312/152" alt="" class="rounded-2xl">
+				</div>
 
-			<div class="text-slate-700">
-				<h3 class="text-2xl text-slate-800 font-bold h-16">
-                    <a href="{% url 'post_detail' post.author post.slug%}">{{post.title}}</a>
-                </h3>
-				<blockquote>
-				Publié le {{post.created_at}}
-				</blockquote>
-				{% if request.user == post.author %}
-					<p>
-						<a href="{% url 'post_edit' post.author post.slug %}" class="text-slate-800 font-bold text-lg">Modifier</a>
-						| <a href="{% url 'post_delete' post.author post.slug %}" class="text-slate-800 font-bold text-lg">Supprimer</a>
+				<div class="text-slate-700">
+					<h3 class="text-2xl text-slate-800 font-bold h-16">
+						<a href="{% url 'post_detail' post.author post.slug%}">{{post.title}}</a>
+					</h3>
+					<blockquote>
+					Publié le {{post.created_at}}
+					</blockquote>
+					{% if request.user == post.author %}
+						<p>
+							<a href="{% url 'post_edit' post.author post.slug %}" class="text-slate-800 font-bold text-lg">Modifier</a>
+							| <a href="{% url 'post_delete' post.author post.slug %}" class="text-slate-800 font-bold text-lg">Supprimer</a>
+						</p>
+					{% endif %}
+					<p class="text-sky-800 h-8">
+						{% for tag in post.tags.all %}
+							{{tag.name}} |
+						{% empty %}
+							Pas de tags
+						{% endfor %}
 					</p>
-				{% endif %}
-				<p class="text-sky-800 h-8">
-					{% for tag in post.tags.all %}
-						{{tag.name}} |
-					{% empty %}
-                        Pas de tags
-					{% endfor %}
-				</p>
-				<p class="h-20">{{post.content|slice:":120" }}</p>
-                <a href="{% url 'post_detail' post.author post.slug%}" class="text-sky-600 font-bold">
-                    Lire la suite -->
-                </a>
+					<p class="h-20">{{post.content|slice:":120" }}</p>
+					<a href="{% url 'post_detail' post.author post.slug%}" class="text-sky-600 font-bold">
+						Lire la suite -->
+					</a>
+				</div>
 			</div>
-        </div>
-    {% empty %}
-        <p>Vous n'avez encore aucun article</p>
-    {% endfor %}
-    </div>
-  </div>
+		{% empty %}
+			
+			{% if request.user == user_profile %}
+				<p>Vous n'avez encore aucun article</p>		
+			{% else %}
+				<p>{{user_profile}} n'a écrit aucun article</p>	
+			{% endif %}
+				
+
+		{% endfor %}
+		</div>
+  	</div>
 {% endblock %}

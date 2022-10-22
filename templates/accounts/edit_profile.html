@@ -5,27 +5,30 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Mise a jour de mon compte</h1>
-
-  <form method="post">
+  <form method="post" class="flex flex-col w-full items-center p-8">
     {% csrf_token %}
+    <h1 class="text-3xl m-10">Mise a jour de mon compte</h1>
 
-    <div class="form-group">
+    <div class="flex flex-col w-full md:w-[500px] my-2">
       <label for="username">Nom d'utilisateur</label>
-      <input type="text" id="username" name="username" value="{{ user.username }}" />
+      <input type="text" name="username" id="username" class="rounded-lg" value="{{ user.username }}" />
     </div>
-    <div>
+
+    <div class="flex flex-col w-full md:w-[500px] my-2">
       <label for="email">Email</label>
-      <input type="email" id="email" name="email" value="{{ user.email }}" />
+      <input type="email" name="email" id="email" class="rounded-lg" value="{{ user.email }}" />
     </div>
-    <div>
-      <label for="firt_name">Prenom</label>
-      <input type="text" id="firt_name" name="firt_name" value="{{ user.firt_name }}" />
+
+    <div class="flex flex-col w-full md:w-[500px] my-2">
+      <label for="frist_name">Prénoms</label>
+      <input type="text" name="first_name" id="first_name" class="rounded-lg" value="{{ user.first_name }}" />
     </div>
-    <div>
+
+    <div class="flex flex-col w-full md:w-[500px] my-2">
       <label for="last_name">Nom</label>
-      <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" />
+      <input type="text" name="last_name" id="last_name" class="rounded-lg" value="{{ user.last_name }}" />
     </div>
-    <input type="submit" value="Mettre a jour" />
+
+    <button type="submit" class="bg-blue-500 text-white rounded-lg p-2 w-40 mt-10">Mettre a jour</button>
   </form>
 {% endblock %}
