@@ -50,7 +50,7 @@
       {% for comment in post.comments.all %}
       <div class="mb-4 w-[300px] md:w-[700px] min-h-[70px] bg-slate-200 border rounded-xl p-2 text-slate-900">
         <p>
-          <a href="{% url 'other_profile' post.author %}" class="text-slate-800 font-bold text-lg">
+          <a href="{% url 'other_profile' comment.author %}" class="text-slate-800 font-bold text-lg">
             {{ comment.author }} 
           </a> 
             | {{comment.created_at }}
