@@ -57,7 +57,14 @@
 				</div>
 			</div>
 		{% empty %}
-			<p>Vous n'avez encore aucun article</p>
+			
+			{% if request.user == user_profile %}
+				<p>Vous n'avez encore aucun article</p>		
+			{% else %}
+				<p>{{user_profile}} n'a écrit aucun article</p>	
+			{% endif %}
+				
+
 		{% endfor %}
 		</div>
   	</div>
