@@ -25,6 +25,8 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tag, blank=True)
+    likes = models.ManyToManyField(
+        to=user_model, related_name='likes', blank=True)
 
     class Meta:
         ordering = ["-created_at"]
