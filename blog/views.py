@@ -4,14 +4,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 
-from .models import Post
+from .models import Post, Tag
 from .forms import CommentForm
 # Create your views here.
 
 
 class PostListView(ListView):
     queryset = Post.objects.filter(published=True).order_by('-created_at')
-    template_name = 'home.html'
+    template_name = 'blog/post_list.html'
 
 
 class PostDetailView(DetailView):
@@ -38,6 +38,11 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tags"] = Tag.objects.all()
+        return context
+
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
@@ -49,6 +54,11 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
         if self.get_object().author != self.request.user:
             return redirect('my_profile')
         return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tags"] = Tag.objects.all()
+        return context
 
 
 class PostDeleteView(LoginRequiredMixin, DeleteView):

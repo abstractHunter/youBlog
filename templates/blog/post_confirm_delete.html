@@ -1,10 +1,10 @@
-{% extends 'blog_page.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
   Confirmation de suppression
 {% endblock %}
 
-{% block body %}
+{% block content %}
   <form method="post">
     {% csrf_token %}
     <h1>Etes vous sur de vouloir supprimer cet article ?</h1>
