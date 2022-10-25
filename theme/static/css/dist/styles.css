@@ -953,6 +953,14 @@ select {
   height: 100%;
 }
 
+.h-52 {
+  height: 13rem;
+}
+
+.h-60 {
+  height: 15rem;
+}
+
 .min-h-\[70px\] {
   min-height: 70px;
 }
@@ -1208,6 +1216,10 @@ select {
 
 .pb-12 {
   padding-bottom: 3rem;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .text-justify {

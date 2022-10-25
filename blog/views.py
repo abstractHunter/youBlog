@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
+from django.contrib.auth import get_user_model
 
 from .models import Post, Tag
 from .forms import CommentForm
@@ -95,3 +96,15 @@ class BecomeBloggerView(LoginRequiredMixin, TemplateView):
         request.user.is_blogger = True
         request.user.save()
         return redirect('my_profile')
+
+
+class AuthorListView(ListView):
+    template_name = 'blog/author_list.html'
+
+    def get_queryset(self):
+        return get_user_model().objects.filter(is_blogger=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["authors"] = self.get_queryset()
+        return context

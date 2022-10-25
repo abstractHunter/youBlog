@@ -28,7 +28,7 @@
                         <a href="{% url 'post_list' %}">Articles</a>
                     </li>
                     <li>
-                        <a href="">Auteurs</a>
+                        <a href="{% url 'author_list' %}">Auteurs</a>
                     </li>
 
                     {% if user.is_authenticated %}
@@ -69,7 +69,7 @@
                 <a href="{% url 'post_list' %}">Articles</a>
             </li>
             <li class="mx-4">
-                <a href="">Auteurs</a>
+                <a href="{% url 'author_list' %}">Auteurs</a>
             </li>
         </ul>
 
