@@ -1,5 +1,12 @@
 {% block navbar %}
-    <nav class="relative flex justify-between px-8 h-16 w-full bg-slate-700 text-white">
+
+
+    {% if user.is_authenticated and user.is_blogger %}
+        <nav class="relative flex justify-between px-8 h-16 w-full bg-teal-900 text-white">
+    {% else %}
+        <nav class="relative flex justify-between px-8 h-16 w-full bg-slate-700 text-white">
+    {% endif %}
+    
         
         {% if user.is_authenticated %}
             <a href="/" class="self-center w-80">YouBlog</a>
