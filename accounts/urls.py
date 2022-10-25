@@ -7,6 +7,6 @@ urlpatterns = [
     path("login/", SignInView.as_view(), name="login"),
     path("logout/", SignOutView.as_view(), name="logout"),
     path("profile/", ProfileView.as_view(), name="my_profile"),
-    path("profile/<str:username>/", ProfileView.as_view(), name="other_profile"),
-    path("edit/", ProfileUpdateView.as_view(), name="edit_profile"),
+    path("author/<str:username>/", ProfileView.as_view(), name="other_profile"),
+    path("edit-profile/", ProfileUpdateView.as_view(), name="edit_profile"),
 ]

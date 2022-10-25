@@ -18,8 +18,9 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
-    path('accounts/', include("accounts.urls")),
+    # path('accounts/', include("accounts.urls")),
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
+    path("", include("accounts.urls")),
     path("", include("blog.urls")),
 ]
