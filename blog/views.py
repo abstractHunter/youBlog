@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -40,6 +40,11 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     fields = ['title', 'content', 'published', 'tags']
     success_url = reverse_lazy('my_profile')
 
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_blogger:
+            return redirect('become_blogger')
+        return super().get(request, *args, **kwargs)
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -76,3 +81,17 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
         if self.get_object().author != self.request.user:
             return redirect('my_profile')
         return super().get(request, *args, **kwargs)
+
+
+class BecomeBloggerView(LoginRequiredMixin, TemplateView):
+    template_name = 'blog/become_blogger_confirm.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_blogger:
+            return redirect('my_profile')
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        request.user.is_blogger = True
+        request.user.save()
+        return redirect('my_profile')

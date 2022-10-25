@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Devenir Bloggeur
+{% endblock %}
+
+{% block content %}
+  <form method="post" class="flex flex-col justify-center items-center mt-32">
+    {% csrf_token %}
+    <h1 class="text-2xl pb-12">Voulez vous commencer votre aventure de Bloggeur maintenant ?</h1>
+    <p>
+      <button onclick="history.back()" class="bg-red-500 text-white rounded-md p-2 m-5 w-24">Non</button>
+      <input type="submit" value="Oui" class="bg-blue-500 text-white rounded-md p-2 m-5 w-24" />
+    </p>
+  </form>
+{% endblock %}
