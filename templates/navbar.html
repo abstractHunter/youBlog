@@ -1,6 +1,19 @@
 {% block navbar %}
-    <nav class="relative flex justify-between px-8 h-16 w-full bg-slate-700 text-white">
-        <a href="/" class="self-center w-52">YouBlog</a>
+
+
+    {% if user.is_authenticated and user.is_blogger %}
+        <nav class="relative flex justify-between px-8 h-16 w-full bg-teal-900 text-white">
+    {% else %}
+        <nav class="relative flex justify-between px-8 h-16 w-full bg-slate-700 text-white">
+    {% endif %}
+    
+        
+        {% if user.is_authenticated %}
+            <a href="/" class="self-center w-80">YouBlog</a>
+        {% else %}
+            <a href="/" class="self-center w-48">YouBlog</a>
+        {% endif %}
+            
 
         <div class="flex flex-col md:hidden">
             <button class="self-end h-12 w-12 m-2 p-2 z-12">
@@ -15,18 +28,25 @@
                         <a href="{% url 'post_list' %}">Articles</a>
                     </li>
                     <li>
-                        <a href="">Auteurs</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'post_new' %}">+</a>
+                        <a href="{% url 'author_list' %}">Auteurs</a>
                     </li>
 
                     {% if user.is_authenticated %}
+                        {% if user.is_blogger %}
+                            <li>
+                                <a href="{% url 'post_new' %}">Nouvel article</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{% url 'become_blogger' %}">Devenir bloggeur</a>
+                            </li>
+                        {% endif %}
+                            
                         <li>
                             <a href="{% url 'logout' %}">Déconnexion</a>
                         </li>
                         <li>
-                            <a href="{% url 'my_profile' %}">Profil</a>
+                            <a href="{% url 'my_profile' %}">{{user.username}}</a>
                         </li>
                     {% else %}
                         <li>
@@ -49,31 +69,36 @@
                 <a href="{% url 'post_list' %}">Articles</a>
             </li>
             <li class="mx-4">
-                <a href="">Auteurs</a>
+                <a href="{% url 'author_list' %}">Auteurs</a>
             </li>
         </ul>
 
-        <ul class="hidden md:flex justify-between items-center w-52">
-            <li>
-                <a href="{% url 'post_new' %}">+</a>
-            </li>
-
-            {% if user.is_authenticated %}
+        {% if user.is_authenticated %}
+        <ul class="hidden md:flex justify-between items-center w-80">                
+            {% if user.is_blogger %}
                 <li>
-                    <a href="{% url 'logout' %}">Déconnexion</a>
-                </li>
-                <li>
-                    <a href="{% url 'my_profile' %}">Profil</a>
+                    <a href="{% url 'post_new' %}">Nouvel article</a>
                 </li>
             {% else %}
                 <li>
-                    <a href="{% url 'login' %}">Connexion</a>
-                </li>
-                <li>
-                    <a href="{% url 'signup' %}">Inscription</a>
+                    <a href="{% url 'become_blogger' %}">Devenir Bloggeur</a>
                 </li>
             {% endif %}
-                
+            <li>
+                <a href="{% url 'logout' %}">Déconnexion</a>
+            </li>
+            <li>
+                <a href="{% url 'my_profile' %}">{{user.username}}</a>
+            </li>
+        {% else %}
+        <ul class="hidden md:flex justify-between items-center w-48">                
+            <li>
+                <a href="{% url 'login' %}">Connexion</a>
+            </li>
+            <li>
+                <a href="{% url 'signup' %}">Inscription</a>
+            </li>
+        {% endif %}
         </ul>
     </nav>
 {% endblock navbar %}

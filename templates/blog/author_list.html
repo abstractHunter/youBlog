@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %} Auteurs {% endblock %}
+
+{% block content %}
+    <div class="w-full flex flex-wrap justify-center md:p-12">
+        {% for author in authors %}
+            <div class="w-80 my-8 flex flex-col border rounded-2xl bg-slate-200 p-1 md:m-4">
+                <div class="w-full h-60 mb-2">
+                    <img src="https://picsum.photos/312/232" alt="" class="rounded-2xl">
+                </div>
+                <div class="text-slate-700">
+                    <h3 class="text-2xl text-slate-800 font-bold h-16 text-center">
+                        <a href="{% url 'other_profile' author %}">{{author.username}}</a>
+                    </h3>
+                </div>
+            </div>
+
+        {% empty %}
+            <p>Il n'y a aucun auteur</p>
+        {% endfor %}
+    </div>
+{% endblock %}
