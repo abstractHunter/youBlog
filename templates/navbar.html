@@ -46,7 +46,7 @@
                             <a href="{% url 'logout' %}">Déconnexion</a>
                         </li>
                         <li>
-                            <a href="{% url 'my_profile' %}">Profil</a>
+                            <a href="{% url 'my_profile' %}">{{user.username}}</a>
                         </li>
                     {% else %}
                         <li>
@@ -88,7 +88,7 @@
                 <a href="{% url 'logout' %}">Déconnexion</a>
             </li>
             <li>
-                <a href="{% url 'my_profile' %}">Profil</a>
+                <a href="{% url 'my_profile' %}">{{user.username}}</a>
             </li>
         {% else %}
         <ul class="hidden md:flex justify-between items-center w-48">                
