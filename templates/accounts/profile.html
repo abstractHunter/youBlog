@@ -47,7 +47,11 @@
 			{% for post in posts %}
 				<div class="w-80 my-8 flex flex-col border rounded-2xl bg-slate-200 p-1 md:m-4">
 					<div class="w-full h-40 mb-2">
-						<img src="https://picsum.photos/312/152" alt="" class="rounded-2xl">
+						{% if post.thumbnail %}
+							<img src="{{post.thumbnail.url}}" alt="" class="rounded-2xl w-[312px] h-[152px]">
+						{% else %}
+							<img src="https://picsum.photos/312/152" alt="" class="rounded-2xl">
+						{% endif %}
 					</div>
 
 					<div class="text-slate-700">

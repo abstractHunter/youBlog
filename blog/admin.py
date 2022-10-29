@@ -5,7 +5,7 @@ from .models import Post, Tag, Comment
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'published', 'created_at')
+    list_display = ('title', 'slug', 'published', 'created_at', 'thumbnail')
     list_filter = ("published",)
     search_fields = ['title', 'content']
 

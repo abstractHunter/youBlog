@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
 
 from .models import Post, Tag
-from .forms import CommentForm
+from .forms import CommentForm, PostForm
 # Create your views here.
 
 
@@ -38,7 +38,7 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'blog/post_form.html'
-    fields = ['title', 'content', 'published', 'tags']
+    form_class = PostForm
     success_url = reverse_lazy('my_profile')
 
     def get(self, request, *args, **kwargs):
@@ -59,7 +59,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'blog/post_form.html'
-    fields = ['title', 'content', 'published', 'tags']
+    form_class = PostForm
     success_url = reverse_lazy('my_profile')
 
     def get(self, request, *args, **kwargs):

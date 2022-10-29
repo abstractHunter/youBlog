@@ -18,6 +18,8 @@ class Tag(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=128)
+    thumbnail = models.ImageField(
+        upload_to='uploads/blog/thumbnails/%Y/%m/%d/', blank=True)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     author = models.ForeignKey(user_model, on_delete=models.CASCADE)
     content = models.TextField()
