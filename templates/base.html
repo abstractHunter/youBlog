@@ -12,6 +12,10 @@
       {% endblock %}
     </title>
     {% tailwind_css %}
+
+    {% block additionnal_links %}
+
+    {% endblock %}
   </head>
 
   <body>
@@ -24,5 +28,9 @@
 
       {% endblock %}
     </main>
+
+    {% block additionnal_scripts %}
+
+    {% endblock %}
   </body>
 </html>

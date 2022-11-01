@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
 
-from .models import Post, Tag
+from .models import Post
 from .forms import CommentForm, PostForm
 # Create your views here.
 
@@ -57,7 +57,6 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["tags"] = Tag.objects.all()
         return context
 
 
@@ -74,7 +73,6 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["tags"] = Tag.objects.all()
         return context
 
 

@@ -3,17 +3,11 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from datetime import datetime
 
+from taggit.managers import TaggableManager
+
 # Create your models here.
 
 user_model = settings.AUTH_USER_MODEL
-
-
-class Tag(models.Model):
-    name = models.CharField(max_length=20)
-    description = models.CharField(max_length=256, blank=True)
-
-    def __str__(self):
-        return self.name
 
 
 class Post(models.Model):
@@ -26,9 +20,9 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=False)
-    tags = models.ManyToManyField(Tag, blank=True)
     likes = models.ManyToManyField(
         to=user_model, related_name='likes', blank=True)
+    tags = TaggableManager()
 
     class Meta:
         ordering = ["-created_at"]
