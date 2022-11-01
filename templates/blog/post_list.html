@@ -7,7 +7,13 @@
         {% for post in post_list %}
             <div class="w-80 my-8 flex flex-col border rounded-2xl bg-slate-200 p-1 md:m-4">
                 <div class="w-full h-40 mb-2">
-                    <img src="https://picsum.photos/312/152" alt="" class="rounded-2xl">
+                    
+                    {% if post.thumbnail %}
+                        <img src="{{post.thumbnail.url}}" alt="" class="rounded-2xl w-[312px] h-[152px]">
+                    {% else %}
+                        <img src="https://picsum.photos/312/152" alt="" class="rounded-2xl">
+                    {% endif %}
+                        
                 </div>
                 <div class="text-slate-700">
                     <h3 class="text-2xl text-slate-800 font-bold h-16">
@@ -27,9 +33,11 @@
                         Pas de tags
                     {% endfor %}
                     </p>
-                    <p class="h-20">{{post.content|slice:":120" }}</p>
+                    <div class="h-20">
+                        {{post.content | slice:":120" | safe}}
+                    </div>
                     <a href="{% url 'post_detail' post.author post.slug%}"
-                        class="text-sky-600 font-bold"
+                    class="text-sky-600 font-bold"
                     >
                         Lire la suite -->
                     </a>

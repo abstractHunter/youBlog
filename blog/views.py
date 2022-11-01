@@ -5,9 +5,14 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
 
-from .models import Post, Tag
-from .forms import CommentForm
+from .models import Post
+from .forms import CommentForm, PostForm
 # Create your views here.
+
+
+class HomeView(ListView):
+    queryset = Post.objects.filter(published=True).order_by('-created_at')
+    template_name = 'home.html'
 
 
 class PostListView(ListView):
@@ -38,7 +43,7 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'blog/post_form.html'
-    fields = ['title', 'content', 'published', 'tags']
+    form_class = PostForm
     success_url = reverse_lazy('my_profile')
 
     def get(self, request, *args, **kwargs):
@@ -52,14 +57,13 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["tags"] = Tag.objects.all()
         return context
 
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'blog/post_form.html'
-    fields = ['title', 'content', 'published', 'tags']
+    form_class = PostForm
     success_url = reverse_lazy('my_profile')
 
     def get(self, request, *args, **kwargs):
@@ -69,7 +73,6 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["tags"] = Tag.objects.all()
         return context
 
 

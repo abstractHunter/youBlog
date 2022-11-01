@@ -4,7 +4,14 @@
   <div class="w-full p-8 md:p-12 flex flex-col items-center">
 
     {% comment %} Header section {% endcomment %}
-    <h1 class="text-4xl text-slate-700 pb-10 font-bold">
+    {% if post.thumbnail %}
+      <img src="{{post.thumbnail.url}}" alt="{{post.title}}" class="w-[900px] h-[300px]">
+    {% else %}
+      <img src="https://source.unsplash.com/random/900x300" alt="{{post.title}}">
+    {% endif %}      
+
+
+    <h1 class="text-4xl text-slate-700 pb-10 font-bold mt-10">
       {% block title %}
         {{ object.title }}
       {% endblock %}

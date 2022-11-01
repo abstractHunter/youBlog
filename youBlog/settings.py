@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     # third party apps
     'tailwind',
     'theme',
+    'django_summernote',
+    'taggit',
+
     # to automatically reload the browser when changes are made to the code
     'django_browser_reload',
 ]
@@ -147,3 +150,18 @@ TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+
+# Base url to serve media files
+MEDIA_URL = '/media/'
+# Path where media is stored
+MEDIA_ROOT = BASE_DIR / 'media/'
+
+
+# Django summernote config
+X_FRAME_OPTIONS = "SAMEORIGIN"
+
+# Taggit config
+TAGGIT_CASE_INSENSITIVE = True
+# custom tag splitter according to tagify.js
+TAGGIT_TAGS_FROM_STRING = 'blog.utils.custom_tag_splitter'
