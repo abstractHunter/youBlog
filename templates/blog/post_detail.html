@@ -43,7 +43,7 @@
     {% if user.is_authenticated %}
     {% comment %}  Like section {% endcomment %}
       <div class="mt-20">
-        <form method="POST">
+        <form method="POST" action="{% url 'post_like' post.author post.slug %}">
           {% csrf_token %}
           
           Ce article est aimé par <span class="text-3xl text-blue-600">{{ post.likes.count }} </span> personnes

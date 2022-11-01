@@ -28,11 +28,6 @@ class PostDetailView(DetailView):
         form = CommentForm(request.POST)
         post = Post.objects.get(slug=self.kwargs['slug'])
 
-        if request.user in post.likes.all():
-            post.likes.remove(request.user)
-        else:
-            post.likes.add(request.user)
-
         if form.is_valid():
             form.instance.author = request.user
             form.instance.post = post
@@ -85,6 +80,16 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
         if self.get_object().author != self.request.user:
             return redirect('my_profile')
         return super().get(request, *args, **kwargs)
+
+
+class PostLikeView(LoginRequiredMixin, TemplateView):
+    def post(self, request, *args, **kwargs):
+        post = Post.objects.get(slug=self.kwargs['slug'])
+        if post.likes.filter(id=request.user.id).exists():
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
+        return redirect('post_detail', username=post.author, slug=self.kwargs['slug'])
 
 
 class BecomeBloggerView(LoginRequiredMixin, TemplateView):
