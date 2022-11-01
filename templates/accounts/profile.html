@@ -74,7 +74,9 @@
 								Pas de tags
 							{% endfor %}
 						</p>
-						<p class="h-20">{{post.content|slice:":120" }}</p>
+						<div class="h-20">
+							{{post.content | slice:":120" | safe}}
+						</div>
 						<a href="{% url 'post_detail' post.author post.slug%}" class="text-sky-600 font-bold">
 							Lire la suite -->
 						</a>

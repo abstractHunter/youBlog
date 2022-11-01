@@ -10,6 +10,11 @@ from .forms import CommentForm, PostForm
 # Create your views here.
 
 
+class HomeView(ListView):
+    queryset = Post.objects.filter(published=True).order_by('-created_at')
+    template_name = 'home.html'
+
+
 class PostListView(ListView):
     queryset = Post.objects.filter(published=True).order_by('-created_at')
     template_name = 'blog/post_list.html'

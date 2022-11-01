@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # third party apps
     'tailwind',
     'theme',
+    'django_summernote',
     # to automatically reload the browser when changes are made to the code
     'django_browser_reload',
 ]
@@ -153,3 +154,5 @@ INTERNAL_IPS = [
 MEDIA_URL = '/media/'
 # Path where media is stored
 MEDIA_ROOT = BASE_DIR / 'media/'
+
+X_FRAME_OPTIONS = "SAMEORIGIN"

@@ -16,7 +16,7 @@
 
       <div class="flex flex-col w-full md:w-[700px] mt-6">
         <label for="content">Contenu</label>
-        <textarea name="content" id="content" class="h-[320px] border border-gray-300 rounded-md p-2">{{ post.content }}</textarea>
+        <textarea name="content" id="content" class="h-[320px] border border-gray-300 rounded-md p-2">{{ post.content | safe }}</textarea>
       </div>
 
       <div class="mt-6 flex">
