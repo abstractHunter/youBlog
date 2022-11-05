@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 
 
@@ -11,7 +11,7 @@ class User(AbstractUser):
     # a user is a blogger if they have verified their email address
     is_blogger = models.BooleanField(default=False)
 
-    objects = models.Manager()
+    objects = UserManager()
     authors = AuthorManager()
 
     def __str__(self):
