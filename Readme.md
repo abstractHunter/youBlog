@@ -32,5 +32,5 @@ You must have python 3.6 or django 4.1 or higher versions installed
 - create a virtual environment: `python3 -m venv venv`
 - activate the environment: `source venv/bin/activate`
 - install dependencies: `pip install -r requirements.txt`
-- create database and tables: `./manage.py makemigrations && ./manage.py migrate`
+- create database and tables: `./manage.py makemigrations accounts blog && ./manage.py migrate`
 - start the server: `./manage.py runserver`
