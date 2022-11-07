@@ -3,7 +3,9 @@
 {% block title %} Articles {% endblock %}
 
 {% block content %}
-    <div class="w-full flex flex-wrap justify-center md:p-12">
+<section class="flex flex-col items-center">
+    <h2 class="text-3xl text-gray-700 mt-12">Liste de tous les Articles</h2>
+    <div class="w-full flex flex-wrap justify-center md:px-12 md:pt-4">
         {% for post in post_list %}
             <div class="w-80 my-8 flex flex-col border rounded-2xl bg-slate-200 p-1 md:m-4">
                 <div class="w-full h-40 mb-2">
