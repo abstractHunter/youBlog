@@ -16,43 +16,45 @@
             
 
         <div class="flex flex-col md:hidden">
-            <button class="self-end h-12 w-12 m-2 p-2 z-12">
-                ...
+            <button class="self-end h-12 w-12 m-2 p-2 z-12"
+                onclick="toggleMenu()">
+                <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path class="heroicon-ui" d="M4 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 5h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 5h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
             </button>
-            <div class="bg-slate-800 z-10 mt-4 rounded-xl w-40 hidden" id="sm-link-menu">
-                <ul class="">
-                    <li>
+            <div class="bg-slate-800 z-10 mt-4 rounded-xl w-40 hidden p-4" id="sm-link-menu">
+                <ul class="text-gray-300">
+                    <li class="pt-2">
                         <a href="{% url 'home' %}">Accueil</a>
                     </li>
-                    <li>
+                    <li class="pt-2">
                         <a href="{% url 'post_list' %}">Articles</a>
                     </li>
-                    <li>
+                    <li class="pt-2">
                         <a href="{% url 'author_list' %}">Auteurs</a>
                     </li>
 
                     {% if user.is_authenticated %}
                         {% if user.is_blogger %}
-                            <li>
+                            <li class="pt-2">
                                 <a href="{% url 'post_new' %}">Nouvel article</a>
                             </li>
                         {% else %}
-                            <li>
+                            <li class="pt-2">
                                 <a href="{% url 'become_blogger' %}">Devenir bloggeur</a>
                             </li>
                         {% endif %}
                             
-                        <li>
+                        <li class="pt-2">
                             <a href="{% url 'logout' %}">Déconnexion</a>
                         </li>
-                        <li>
+                        <li class="mt-2 bg-slate-400 text-slate-800 rounded-lg text-center">
                             <a href="{% url 'my_profile' %}">{{user.username}}</a>
                         </li>
                     {% else %}
-                        <li>
+                        <li class="pt-2">
                             <a href="{% url 'login' %}">Connexion</a>
                         </li>
-                        <li>
+                        <li class="pt-2">
                             <a href="{% url 'signup' %}">Inscription</a>
                         </li>
                     {% endif %}
@@ -62,13 +64,13 @@
         </div>
 
         <ul class="hidden md:flex flex-grow justify-center items-center">
-            <li class="mx-4">
+            <li class="px-4 hover:bg-gray-800 hover:py-2 hover:rounded-xl">
                 <a href="{% url 'home' %}">Accueil</a>
             </li>
-            <li class="mx-4">
+            <li class="px-4 hover:bg-gray-800 hover:py-2 hover:rounded-xl">
                 <a href="{% url 'post_list' %}">Articles</a>
             </li>
-            <li class="mx-4">
+            <li class="px-4 hover:bg-gray-800 hover:py-2 hover:rounded-xl">
                 <a href="{% url 'author_list' %}">Auteurs</a>
             </li>
         </ul>
@@ -76,26 +78,26 @@
         {% if user.is_authenticated %}
         <ul class="hidden md:flex justify-between items-center w-80">                
             {% if user.is_blogger %}
-                <li>
+                <li class="px-2 hover:bg-gray-800 hover:py-2 hover:rounded-xl">
                     <a href="{% url 'post_new' %}">Nouvel article</a>
                 </li>
             {% else %}
-                <li>
+                <li class="px-2 hover:bg-gray-800 hover:py-2 hover:rounded-xl">
                     <a href="{% url 'become_blogger' %}">Devenir Bloggeur</a>
                 </li>
             {% endif %}
-            <li>
+            <li class="px-2 hover:bg-gray-800 hover:py-2 hover:rounded-xl">
                 <a href="{% url 'logout' %}">Déconnexion</a>
             </li>
-            <li>
+            <li class="px-6 py-1 last:bg-slate-400 text-slate-800 rounded-lg">
                 <a href="{% url 'my_profile' %}">{{user.username}}</a>
             </li>
         {% else %}
         <ul class="hidden md:flex justify-between items-center w-48">                
-            <li>
+            <li class="px-2 hover:bg-gray-800 hover:py-2 hover:rounded-xl">
                 <a href="{% url 'login' %}">Connexion</a>
             </li>
-            <li>
+            <li class="px-2 hover:bg-gray-800 hover:py-2 hover:rounded-xl">
                 <a href="{% url 'signup' %}">Inscription</a>
             </li>
         {% endif %}

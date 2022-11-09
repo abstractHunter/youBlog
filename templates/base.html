@@ -32,5 +32,11 @@
     {% block additionnal_scripts %}
 
     {% endblock %}
+    <script>
+      const toggleMenu = () => {
+        const menuToggle = document.querySelector('#sm-link-menu');
+        menuToggle.classList.toggle('hidden');
+      };
+    </script>
   </body>
 </html>
