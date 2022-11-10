@@ -10,9 +10,15 @@ from .forms import CommentForm, PostForm
 # Create your views here.
 
 
-class HomeView(ListView):
-    queryset = Post.objects.filter(published=True).order_by('-created_at')
+class HomeView(TemplateView):
     template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recent_posts'] = Post.published_objects.order_by('-created_at')[:3]
+        context["popular_posts"] = sorted(Post.published_objects.all(), key=lambda x: x.rating, reverse=True)[:3]
+        context["popular_authors"] = sorted(get_user_model().authors.all(), key=lambda x: x.rating, reverse=True)[:3]
+        return context
 
 
 class PostListView(ListView):
@@ -27,11 +33,6 @@ class PostDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         form = CommentForm(request.POST)
         post = Post.objects.get(slug=self.kwargs['slug'])
-
-        if request.user in post.likes.all():
-            post.likes.remove(request.user)
-        else:
-            post.likes.add(request.user)
 
         if form.is_valid():
             form.instance.author = request.user
@@ -87,6 +88,16 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
         return super().get(request, *args, **kwargs)
 
 
+class PostLikeView(LoginRequiredMixin, TemplateView):
+    def post(self, request, *args, **kwargs):
+        post = Post.objects.get(slug=self.kwargs['slug'])
+        if post.likes.filter(id=request.user.id).exists():
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
+        return redirect('post_detail', username=post.author, slug=self.kwargs['slug'])
+
+
 class BecomeBloggerView(LoginRequiredMixin, TemplateView):
     template_name = 'blog/become_blogger_confirm.html'
 
@@ -105,7 +116,7 @@ class AuthorListView(ListView):
     template_name = 'blog/author_list.html'
 
     def get_queryset(self):
-        return get_user_model().objects.filter(is_blogger=True)
+        return get_user_model().authors.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

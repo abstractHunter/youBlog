@@ -3,47 +3,111 @@
 {% block title %} Accueil {% endblock %}
 
 {% block content %}
-    <div class="w-full flex flex-wrap justify-center md:p-12">
-        {% for post in post_list %}
-            <div class="w-80 my-8 flex flex-col border rounded-2xl bg-slate-200 p-1 md:m-4">
-                <div class="w-full h-40 mb-2">
-                    {% if post.thumbnail %}
-                        <img src="{{post.thumbnail.url}}" alt="" class="rounded-2xl w-[312px] h-[152px]">
-                    {% else %}
-                        <img src="https://picsum.photos/312/152" alt="" class="rounded-2xl">
-                    {% endif %}
-                </div>
-                <div class="text-slate-700">
-                    <h3 class="text-2xl text-slate-800 font-bold h-16">
-                        <a href="{% url 'post_detail' post.author post.slug%}">{{post.title}}</a>
-                    </h3>
-                    <blockquote class="h-8 truncate">
-                        Publié par 
-                        <a href="{% url 'other_profile' post.author %}" class="text-slate-800 font-bold text-xl">
-                            {{ post.author }}
-                        </a> 
-                        le {{post.created_at}}
-                    </blockquote>
-                    <p class="text-sky-800 h-8">
-                    {% for tag in post.tags.all %}
-                        {{tag.name}} | 
-                    {% empty %}
-                        Pas de tags
-                    {% endfor %}
-                    </p>
-                    <div class="h-20">
-                        {{post.content | slice:":120" | safe}}
-                    </div>
-                    <a href="{% url 'post_detail' post.author post.slug%}"
-                        class="text-sky-600 font-bold"
-                    >
-                        Lire la suite -->
-                    </a>
-                </div>
-            </div>
 
-        {% empty %}
-            <p>Il n'y a aucun article</p>
-        {% endfor %}
-    </div>
+
+    <section class="flex flex-col items-center">
+        <h2 class="text-3xl text-gray-700 mt-12">Articles les plus populaires</h2>
+        <div class="w-full flex flex-wrap justify-center md:px-12 md:pt-4">
+            {% for post in popular_posts %}
+                <div class="w-80 my-8 flex flex-col border rounded-2xl bg-slate-200 p-1 md:m-4">
+                    <div class="w-full h-40 mb-2">
+                        {% if post.thumbnail %}
+                            <img src="{{post.thumbnail.url}}" alt="" class="rounded-2xl w-[312px] h-[152px]">
+                        {% else %}
+                            <img src="https://picsum.photos/312/152" alt="" class="rounded-2xl">
+                        {% endif %}
+                    </div>
+                    <div class="text-slate-700">
+                        <h3 class="text-2xl text-slate-800 font-bold h-16">
+                            <a href="{% url 'post_detail' post.author post.slug%}">{{post.title}}</a>
+                        </h3>
+                        <blockquote class="h-8 truncate">
+                            Publié par 
+                            <a href="{% url 'other_profile' post.author %}" class="text-slate-800 font-bold text-xl">
+                                {{ post.author }}
+                            </a> 
+                            le {{post.created_at}}
+                        </blockquote>
+                        <p class="text-sky-800 h-8">
+                        {% for tag in post.tags.all %}
+                            {{tag.name}} | 
+                        {% empty %}
+                            Pas de tags
+                        {% endfor %}
+                        </p>
+                        <div class="h-20">
+                            {{post.content | slice:":120" | safe}}
+                        </div>
+                        <a href="{% url 'post_detail' post.author post.slug%}"
+                            class="text-sky-600 font-bold"
+                        >
+                            Lire la suite -->
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="flex flex-col items-center">
+        <h2 class="text-3xl text-gray-700 mt-12">Auteurs les plus populaires</h2>
+        <div class="w-full flex flex-wrap justify-center md:px-12 md:pt-4">
+            {% for author in popular_authors %}
+                <div class="w-80 my-8 flex flex-col border rounded-2xl bg-slate-200 p-1 md:m-4">
+                    <div class="w-full h-60 mb-2">
+                        <img src="https://picsum.photos/312/232" alt="" class="rounded-2xl">
+                    </div>
+                    <div class="text-slate-700">
+                        <h3 class="text-2xl text-slate-800 font-bold h-16 text-center">
+                            <a href="{% url 'other_profile' author %}">{{author.username}}</a>
+                        </h3>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="flex flex-col items-center">
+        <h2 class="text-3xl text-gray-700 mt-12">Articles les plus récents</h2>
+        <div class="w-full flex flex-wrap justify-center md:px-12 md:pt-4">
+            {% for post in recent_posts %}
+                <div class="w-80 my-8 flex flex-col border rounded-2xl bg-slate-200 p-1 md:m-4">
+                    <div class="w-full h-40 mb-2">
+                        {% if post.thumbnail %}
+                            <img src="{{post.thumbnail.url}}" alt="" class="rounded-2xl w-[312px] h-[152px]">
+                        {% else %}
+                            <img src="https://picsum.photos/312/152" alt="" class="rounded-2xl">
+                        {% endif %}
+                    </div>
+                    <div class="text-slate-700">
+                        <h3 class="text-2xl text-slate-800 font-bold h-16">
+                            <a href="{% url 'post_detail' post.author post.slug%}">{{post.title}}</a>
+                        </h3>
+                        <blockquote class="h-8 truncate">
+                            Publié par 
+                            <a href="{% url 'other_profile' post.author %}" class="text-slate-800 font-bold text-xl">
+                                {{ post.author }}
+                            </a> 
+                            le {{post.created_at}}
+                        </blockquote>
+                        <p class="text-sky-800 h-8">
+                        {% for tag in post.tags.all %}
+                            {{tag.name}} | 
+                        {% empty %}
+                            Pas de tags
+                        {% endfor %}
+                        </p>
+                        <div class="h-20">
+                            {{post.content | slice:":120" | safe}}
+                        </div>
+                        <a href="{% url 'post_detail' post.author post.slug%}"
+                            class="text-sky-600 font-bold"
+                        >
+                            Lire la suite -->
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}

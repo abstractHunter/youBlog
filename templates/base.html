@@ -23,7 +23,7 @@
       {% include 'navbar.html' %}
     {% endblock %}
 
-    <main>
+    <main class="mb-16">
       {% block content %}
 
       {% endblock %}
@@ -32,5 +32,11 @@
     {% block additionnal_scripts %}
 
     {% endblock %}
+    <script>
+      const toggleMenu = () => {
+        const menuToggle = document.querySelector('#sm-link-menu');
+        menuToggle.classList.toggle('hidden');
+      };
+    </script>
   </body>
 </html>

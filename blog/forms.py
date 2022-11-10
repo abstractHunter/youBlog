@@ -10,7 +10,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title', 'published', 'tags', 'thumbnail']
+        fields = ['title', 'published', 'content', 'tags', 'thumbnail']
         """ widgets = {
             'content': SummernoteWidget(),
         } """

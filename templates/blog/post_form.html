@@ -27,42 +27,45 @@
 
 
 {% block content %}
-  <div class="w-full p-4">
-    <form method="post" enctype="multipart/form-data" class="flex flex-col w-full items-center">
-      {% csrf_token %}
+  <section class="flex flex-col items-center">
+    <h2 class="text-3xl text-gray-700 mt-12">Créer un nouvel Article</h2>
+    <div class="w-full p-4">
+      <form method="post" enctype="multipart/form-data" class="flex flex-col w-full items-center">
+        {% csrf_token %}
 
-      <div class="flex flex-col w-full md:w-[700px] mt-6">
-        <label for="title">Titre</label>
-        <input type="text" value="{{ post.title }}" name="title" id="title" class="border border-gray-300 rounded-md p-2" />
-      </div>
+        <div class="flex flex-col w-full md:w-[700px] mt-6">
+          <label for="title">Titre</label>
+          <input type="text" value="{{ post.title }}" name="title" id="title" class="border border-gray-300 rounded-md p-2" />
+        </div>
 
-      <div class="flex flex-col w-full md:w-[700px] mt-6">
-        <label for="content">Contenu</label>
-        <textarea name="content" id="content" class="h-[320px] border border-gray-300 rounded-md p-2">{{ post.content | safe }}</textarea>
-      </div>
+        <div class="flex flex-col w-full md:w-[700px] mt-6">
+          <label for="content">Contenu</label>
+          <textarea name="content" id="content" class="h-[320px] border border-gray-300 rounded-md p-2">{{ post.content | safe }}</textarea>
+        </div>
 
-      <div class="mt-6 flex">
-        <label for="published" class="flex justify-between items-center p-2">
-          Brouillon<input type="checkbox" name="published" id="published" class="peer hidden" {% if post.published %} checked {% endif %}/>
-          <span class="bg-gray-400 mx-2 w-11 h-7 rounded-full flex items-center after:bg-white after:w-5 after:h-5 after:rounded-full p-1 peer-checked:bg-slate-700 peer-checked:after:translate-x-4 ease-in-out duration-300 after:duration-300"></span>
-          Publier
-        </label>
-      </div>
+        <div class="mt-6 flex">
+          <label for="published" class="flex justify-between items-center p-2">
+            Brouillon<input type="checkbox" name="published" id="published" class="peer hidden" {% if post.published %} checked {% endif %}/>
+            <span class="bg-gray-400 mx-2 w-11 h-7 rounded-full flex items-center after:bg-white after:w-5 after:h-5 after:rounded-full p-1 peer-checked:bg-slate-700 peer-checked:after:translate-x-4 ease-in-out duration-300 after:duration-300"></span>
+            Publier
+          </label>
+        </div>
 
-      <div class="w-full md:w-[700px] mt-6">
-        <label for="thumbnail">Image</label>
-        <input type="file" name="thumbnail" accept="image/*" id="thumbnail"/>
-      </div>
+        <div class="w-full md:w-[700px] mt-6">
+          <label for="thumbnail">Image</label>
+          <input type="file" name="thumbnail" accept="image/*" id="thumbnail"/>
+        </div>
 
-      <div class="flex flex-col w-full md:w-[700px] mt-6">
-        <label for="tags">Tags (entrez le tag puis appuyez sur la touche "Entrer" pour valider</label>
-        <input type="text" name="tags" id="tags" class="border border-gray-300 rounded-md p-2" 
-          value="{% for tag in post.tags.all %}{{ tag.name }},{% endfor %}"
-        />
+        <div class="flex flex-col w-full md:w-[700px] mt-6">
+          <label for="tags">Tags (entrez le tag puis appuyez sur la touche "Entrer" pour valider</label>
+          <input type="text" name="tags" id="tags" class="border border-gray-300 rounded-md p-2" 
+            value="{% for tag in post.tags.all %}{{ tag.name }},{% endfor %}"
+          />
 
-      </div>
+        </div>
 
-      <button type="submit" class="bg-blue-500 text-white rounded-md p-2 mt-10 w-40">Enregistrer</button>
-    </form>
-  </div>
+        <button type="submit" class="bg-blue-500 text-white rounded-md p-2 mt-10 w-40">Enregistrer</button>
+      </form>
+    </div>
+  </section>
 {% endblock %}
