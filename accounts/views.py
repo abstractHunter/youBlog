@@ -17,6 +17,37 @@ class SignUpView(CreateView):
     success_url = reverse_lazy("login")
     template_name = "accounts/signup.html"
 
+    def get(self, request, *args, **kwargs):
+        # if the user is already logged in, redirect to the home page
+        if request.user.is_authenticated:
+            return redirect("home")
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        # get the username and password from the form
+        username = request.POST.get("username")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
+
+        # check if the user already exists
+        if get_user_model().objects.filter(username=username).exists():
+            message = "Cet utilisateur existe déjà"
+            return render(request, "accounts/signup.html", {"message": message, "username": username})
+
+        # check if the passwords match
+        if password1 != password2:
+            message = "Les mots de passe ne correspondent pas"
+            return render(request, "accounts/signup.html", {"message": message, "username": username})
+
+        # create the user and log the user in
+        user = get_user_model().objects.create_user(
+            username=username,
+            password=password1,
+        )
+        login(request, user)
+
+        return super().post(request, *args, **kwargs)
+
 
 class SignInView(LoginView):
     template_name = "accounts/login.html"
