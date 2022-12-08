@@ -25,6 +25,7 @@ class HomeView(TemplateView):
 
 
 class PostListView(ListView):
+    paginate_by = 3
     template_name = 'blog/post_list.html'
 
     def get_queryset(self):

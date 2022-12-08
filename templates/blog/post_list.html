@@ -57,5 +57,23 @@
             {% endfor %}
         </div>
 
+        <div class="flex my-8">
+            {% if page_obj.has_previous %}
+                <div>
+                    <a href="?page=1" class="bg-slate-400 p-4 rounded-lg"> &laquo;&laquo;</a> | 
+                    <a href="?page={{ page_obj.previous_page_number }}" class="bg-slate-400 p-4 rounded-lg">{{ page_obj.previous_page_number }}</a>
+                </div>
+            {% endif %}
+                <div class="mx-6">
+                    <span class="bg-green-800 p-4 rounded-lg">{{ page_obj.number }}</span>
+                </div>
+            {% if page_obj.has_next %}
+                <div>
+                    <a href="?page={{ page_obj.next_page_number }}" class="bg-slate-400 p-4 rounded-lg">{{ page_obj.next_page_number }}</a> |
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="bg-slate-400 p-4 rounded-lg"> &raquo;&raquo;</a>
+                </div>
+            {% endif %}
+        </div>
+
     </section>
 {% endblock %}
