@@ -45,8 +45,7 @@ class SignUpView(CreateView):
             password=password1,
         )
         login(request, user)
-
-        return super().post(request, *args, **kwargs)
+        return redirect("home")
 
 
 class SignInView(LoginView):
