@@ -131,9 +131,14 @@ class AuthorListView(ListView):
     template_name = 'blog/author_list.html'
 
     def get_queryset(self):
-        return get_user_model().authors.all()
+        search = self.request.GET.get('search', "")
+        author_list = get_user_model().authors.all()
+        if search:
+            author_list = author_list.filter(username__icontains=search)
+        return author_list
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["authors"] = self.get_queryset()
+        context["search_value"] = self.request.GET.get('search', "")
         return context

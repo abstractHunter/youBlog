@@ -3,24 +3,35 @@
 {% block title %} Auteurs {% endblock %}
 
 {% block content %}
-<section class="flex flex-col items-center">
-    <h2 class="text-3xl text-gray-700 mt-12">Liste de tous les Auteurs</h2>
-    <div class="w-full flex flex-wrap justify-center md:px-12 md:pt-4">
-        {% for author in authors %}
-            <div class="w-80 my-8 flex flex-col border rounded-2xl bg-slate-200 p-1 md:m-4">
-                <div class="w-full h-60 mb-2">
-                    <img src="https://picsum.photos/312/232" alt="" class="rounded-2xl">
-                </div>
-                <div class="text-slate-700">
-                    <h3 class="text-2xl text-slate-800 font-bold h-16 text-center">
-                        <a href="{% url 'other_profile' author %}">{{author.username}}</a>
-                    </h3>
-                </div>
-            </div>
+    <section class="flex flex-col items-center">
 
-        {% empty %}
-            <p>Il n'y a aucun auteur</p>
-        {% endfor %}
-    </div>
-</section>
+        <form method="get" class="mt-12 mb-4">
+            <input type="text" name="search" id="search" placeholder="Rechercher un auteur" class=" w-52 md:w-80 h-12 rounded-2xl border-2 border-sky-600 p-2 m-2" value="{{search_value}}">
+            <button type="submit" class="bg-sky-600 text-white rounded-2xl px-4 py-2 m-2">Rechercher</button>
+        </form>
+        
+        {% if search_value %}
+            <h2 class="text-3xl text-gray-700 my-8">Liste des auteurs contenant {{search_value}}</h2>
+        {% else %}
+            <h2 class="text-3xl text-gray-700 my-8">Liste de tous les Auteurs</h2>
+        {% endif %}
+        
+        <div class="w-full flex flex-wrap justify-center md:px-12 md:pt-4">
+            {% for author in authors %}
+                <div class="w-80 my-8 flex flex-col border rounded-2xl bg-slate-200 p-1 md:m-4">
+                    <div class="w-full h-60 mb-2">
+                        <img src="https://picsum.photos/312/232" alt="" class="rounded-2xl">
+                    </div>
+                    <div class="text-slate-700">
+                        <h3 class="text-2xl text-slate-800 font-bold h-16 text-center">
+                            <a href="{% url 'other_profile' author %}">{{author.username}}</a>
+                        </h3>
+                    </div>
+                </div>
+
+            {% empty %}
+                <p>Il n'y a aucun auteur</p>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}
