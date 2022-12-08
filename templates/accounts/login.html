@@ -10,14 +10,21 @@
     {% csrf_token %}
     <h1 class="text-3xl m-10">Connexion</h1>
 
+    
+    {% if message %}
+      <div class="flex justify-center items-center w-full md:w-[500px] h-10 my-2 bg-red-400 rounded-lg">
+        <p> {{ message }} </p>
+      </div>
+    {% endif %}
+
     <div class="flex flex-col w-full md:w-[500px] my-2">
       <label for="username">Nom d'utilisateur</label>
-      <input type="text" class="rounded-lg" id="username" name="username" placeholder="Nom d'utilisateur" />
+      <input type="text" class="rounded-lg" id="username" name="username" placeholder="Nom d'utilisateur" value="{{username}}" required/>
     </div>
 
     <div class="flex flex-col w-full md:w-[500px] my-2">
       <label for="password">Mot de passe</label>
-      <input type="password" class="rounded-lg" id="password" name="password" placeholder="Mot de passe" />
+      <input type="password" class="rounded-lg" id="password" name="password" placeholder="Mot de passe" required/>
     </div>
 
     <button type="submit" class="bg-blue-500 text-white rounded-lg p-2 w-40 mt-10">

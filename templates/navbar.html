@@ -79,11 +79,11 @@
         <ul class="hidden md:flex justify-between items-center w-80">                
             {% if user.is_blogger %}
                 <li class="px-2 hover:bg-gray-800 hover:py-2 hover:rounded-xl">
-                    <a href="{% url 'post_new' %}">Nouvel article</a>
+                    <a href="{% url 'post_new' %}"> Écrire </a>
                 </li>
             {% else %}
                 <li class="px-2 hover:bg-gray-800 hover:py-2 hover:rounded-xl">
-                    <a href="{% url 'become_blogger' %}">Devenir Bloggeur</a>
+                    <a href="{% url 'become_blogger' %}"> Écrire </a>
                 </li>
             {% endif %}
             <li class="px-2 hover:bg-gray-800 hover:py-2 hover:rounded-xl">
